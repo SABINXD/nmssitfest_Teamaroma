@@ -59,16 +59,17 @@ export default function findBlood() {
 
     const submitForm = async (e) => {
         e.preventDefault();
+
         if (!province || !district || !selectedBloodGroup) {
             alert("Please select all fields");
             return;
         }
 
-
         setLoading(true);
 
         try {
-            const res = await fetch("/api/getUserData", {
+            // 1️⃣ First attempt: full filters
+            let res = await fetch("/api/getUserData", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -79,18 +80,40 @@ export default function findBlood() {
                 }),
             });
 
-            const data = await res.json();
-            console.log(data);
+            let data = await res.json();
 
-            setAllUsers(data.donors);
+            // 2️⃣ If no users found → fallback to blood-only
+            if (!data.donors || data.donors.length === 0) {
+                alert('Users from Selected Location not found. ')
+                console.log("No users nearby, searching by blood group only...");
+
+                const fallbackRes = await fetch("/api/getUserData", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        bloodGroup: selectedBloodGroup,
+                        isAllUsers: true,
+                        onlyBloodFind: true,
+                    }),
+                });
+
+                const fallbackData = await fallbackRes.json();
+
+                setAllUsers(fallbackData.donors || []);
+            } else {
+                setAllUsers(data.donors);
+            }
+
             setOpenAllRequireUsers(true);
 
         } catch (err) {
             console.error(err);
+            alert("Something went wrong");
         } finally {
             setLoading(false);
         }
     };
+
 
 
     if (openAllRequireUsers) {

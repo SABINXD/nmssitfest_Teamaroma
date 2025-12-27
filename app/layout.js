@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Blood Apps",
+  title: "Blood Flow",
   description: "Emergency case management system",
 };
 

@@ -29,15 +29,25 @@ export async function POST(req) {
 
             const notifications = await Notification.find({
                 notificationReceiverId: userId,
+                helperConfirmed: false, // Blood requests waiting for helper
+            })
+                .populate("notificationSenderId", "name bloodgroup email contact")
+                .sort({ createdAt: -1 });
+
+            const confirmNotifications = await Notification.find({
+                notificationSenderId: userId,
+                helperConfirmed: true, // Already helped, waiting for receiver confirmation
+                receiverConfirmed: false,
             })
                 .populate("notificationSenderId", "name bloodgroup email contact")
                 .sort({ createdAt: -1 });
 
             return new Response(
-                JSON.stringify({ success: true, notifications }),
+                JSON.stringify({ success: true, notifications, confirmNotifications }),
                 { status: 200 }
             );
         }
+
 
         // --- SEND NOTIFICATION CASE ---
         // Validate required fields
@@ -134,5 +144,25 @@ export async function POST(req) {
             JSON.stringify({ success: false, error: error.message }),
             { status: 500 }
         );
+    }
+}
+
+export async function PATCH(req) {
+    await connectDB();
+    try {
+        const { notificationId } = await req.json();
+        const notification = await Notification.findById(notificationId);
+        console.log(notification);
+
+
+        if (!notification) return new Response(JSON.stringify({ success: false, error: "Notification not found" }), { status: 404 });
+
+        // Update helper confirmation
+        notification.helperConfirmed = true;
+        await notification.save();
+
+        return new Response(JSON.stringify({ success: true, notification }), { status: 200 });
+    } catch (err) {
+        return new Response(JSON.stringify({ success: false, error: err.message }), { status: 500 });
     }
 }

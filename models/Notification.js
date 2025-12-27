@@ -18,6 +18,8 @@ const notificationSchema = new mongoose.Schema(
             required: true,
             enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "a+", "a-", "b+", "b-", "ab+", "ab-", "o+", "o-"]
         },
+        helperConfirmed: { type: Boolean, default: false }, // Helper clicked "I helped"
+        receiverConfirmed: { type: Boolean, default: false }, // Receiver confirms blood received
     },
     { timestamps: true }
 );

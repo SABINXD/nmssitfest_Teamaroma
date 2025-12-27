@@ -79,47 +79,52 @@ const AllRequireUsers = () => {
 
             {/* Users Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-                {allUsers.map((donor) => (
-                    <div
-                        key={donor._id}
-                        className='bg-white shadow-lg rounded-xl p-6 border-l-4 border-red-600 hover:shadow-2xl transition duration-300'
-                    >
-                        {/* Name + Blood Group */}
-                        <div className='flex items-center justify-between mb-4'>
-                            <h3 className='text-xl font-bold text-gray-800'>{donor.name}</h3>
-                            <span
-                                className={`px-3 py-1 rounded-full text-white font-semibold ${donor.bloodgroup.includes('+') ? 'bg-red-600' : 'bg-red-400'
-                                    }`}
-                            >
-                                {donor.bloodgroup}
-                            </span>
-                        </div>
-
-                        {/* User Info */}
-                        <div className='space-y-1 text-gray-700 text-sm'>
-                            <p><span className='font-semibold'>Email:</span> {donor.email}</p>
-                            <p><span className='font-semibold'>Contact:</span> {donor.contact}</p>
-                            <p><span className='font-semibold'>Province:</span> {donor.province}</p>
-                            <p><span className='font-semibold'>District:</span> {donor.district}</p>
-                            <p><span className='font-semibold'>Birth Year:</span> {donor.birthYear}</p>
-                            <p><span className='font-semibold'>Donation Count:</span> {donor.donationCount}</p>
-                            <p>
-                                <span className='font-semibold'>Active:</span>{' '}
+                {allUsers
+                    .filter(donor => donor._id !== user?.id)
+                    .map((donor) => (
+                        <div
+                            key={donor._id}
+                            className="bg-white shadow-lg rounded-xl p-6 border-l-4 border-red-600 hover:shadow-2xl transition duration-300"
+                        >
+                            {/* Name + Blood Group */}
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-xl font-bold text-gray-800">{donor.name}</h3>
                                 <span
-                                    className={`font-semibold ${donor.isActive ? 'text-green-600' : 'text-gray-400'
+                                    className={`px-3 py-1 rounded-full text-white font-semibold ${donor.bloodgroup.includes("+") ? "bg-red-600" : "bg-red-400"
                                         }`}
                                 >
-                                    {donor.isActive ? 'Yes' : 'No'}
+                                    {donor.bloodgroup}
                                 </span>
-                            </p>
-                        </div>
+                            </div>
 
-                        {/* Action Button */}
-                        <button onClick={() => handleNotifyUser(user?.id, donor.bloodgroup, donor._id)} className='mt-4 w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition'>
-                            Send Request for Blood
-                        </button>
-                    </div>
-                ))}
+                            {/* User Info */}
+                            <div className="space-y-1 text-gray-700 text-sm">
+                                <p><span className="font-semibold">Email:</span> {donor.email}</p>
+                                <p><span className="font-semibold">Contact:</span> {donor.contact}</p>
+                                <p><span className="font-semibold">Province:</span> {donor.province}</p>
+                                <p><span className="font-semibold">District:</span> {donor.district}</p>
+                                <p><span className="font-semibold">Birth Year:</span> {donor.birthYear}</p>
+                                <p><span className="font-semibold">Donation Count:</span> {donor.donationCount}</p>
+                                <p>
+                                    <span className="font-semibold">Active:</span>{" "}
+                                    <span className={`font-semibold ${donor.isActive ? "text-green-600" : "text-gray-400"}`}>
+                                        {donor.isActive ? "Yes" : "No"}
+                                    </span>
+                                </p>
+                            </div>
+
+                            {/* Action Button */}
+                            <button
+                                onClick={() =>
+                                    handleNotifyUser(user.id, donor.bloodgroup, donor._id)
+                                }
+                                className="mt-4 w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition"
+                            >
+                                Send Request for Blood
+                            </button>
+                        </div>
+                    ))}
+
             </div>
         </div>
 
