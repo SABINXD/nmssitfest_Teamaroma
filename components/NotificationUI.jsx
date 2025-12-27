@@ -179,7 +179,7 @@ const NotificationUI = () => {
           >
             <div className="p-5 space-y-2">
               <h3 className="text-lg font-bold text-gray-800">{notif.notificationReceiverId.name}</h3>
-              <p className="text-sm text-gray-600">📞 {notif.notificationSenderId.contact}</p>
+              <p className="text-sm text-gray-600">📞 {notif.notificationReceiverId.contact}</p>
               <p className="text-sm text-gray-600">Blood Group Donated: {notif.bloodGroupRequire}</p>
               <p className="text-xs text-gray-400">{new Date(notif.createdAt).toLocaleString()}</p>
             </div>
@@ -188,7 +188,7 @@ const NotificationUI = () => {
               <p className="text-sm font-medium text-gray-700 text-center">Did you receive blood from this helper?</p>
               <div className="flex gap-3">
                 <button
-                  onClick={() => confirmReceivedBlood(notif._id, notif.notificationSenderId._id, notificationReceiverId)}
+                  onClick={() => confirmReceivedBlood(notif._id, notif.notificationSenderId._id, notif.notificationReceiverId)}
                   className="flex-1 bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
                 >
                   ✅ Yes

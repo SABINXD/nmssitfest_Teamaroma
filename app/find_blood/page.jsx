@@ -51,10 +51,8 @@ export default function findBlood() {
     const [district, setDistrict] = useState("");
     const [selectedBloodGroup, setSelectedBloodGroup] = useState(""); // initial empty
 
-    const { allUsers, setAllUsers, openAllRequireUsers, setOpenAllRequireUsers } = useAuth();
-    console.log(allUsers);
-
-
+    const { allUsers, setAllUsers, openAllRequireUsers, setOpenAllRequireUsers, user } = useAuth();
+    console.log(user, 'me');
 
 
     const submitForm = async (e) => {
@@ -77,16 +75,18 @@ export default function findBlood() {
                     district,
                     bloodGroup: selectedBloodGroup,
                     isAllUsers: true,
-                }),
+                    userId: user?.id
+                })
+
             });
 
             let data = await res.json();
+            console.log(data, "data");
+
 
             // 2️⃣ If no users found → fallback to blood-only
-            if (!data.donors || data.donors.length === 0) {
-                alert('Users from Selected Location not found. ')
-                console.log("No users nearby, searching by blood group only...");
-
+            if (data.donors.length === 0) {
+                // alert('Users from Selected Location not found.');
                 const fallbackRes = await fetch("/api/getUserData", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -96,9 +96,7 @@ export default function findBlood() {
                         onlyBloodFind: true,
                     }),
                 });
-
                 const fallbackData = await fallbackRes.json();
-
                 setAllUsers(fallbackData.donors || []);
             } else {
                 setAllUsers(data.donors);

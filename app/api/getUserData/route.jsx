@@ -6,24 +6,30 @@ import mongoose from "mongoose";
 
 export async function POST(req) {
   await connectDB();
-
+ 
   const body = await req.json();
   const {
     isAllUsers,
     province,
-    district,
+    district, 
     bloodGroup,
-    onlyBloodFind,
+    onlyBloodFind, 
     userId,
   } = body;
 
   // FETCH MULTIPLE USERS
+  console.log(isAllUsers,
+    province,
+    district,
+    bloodGroup,
+    userId, "x");
+
 
   if (isAllUsers) {
     try {
       const query = {};
 
-      // Blood group filter (always allowed)
+      // Blood group filter (always allowed) 
       if (bloodGroup) {
         query.bloodgroup = bloodGroup.toUpperCase();
       }
@@ -40,6 +46,8 @@ export async function POST(req) {
       }
 
       const donors = await Donor.find(query).select("-password");
+      console.log(donors, "x"); 
+      
 
       return NextResponse.json({ success: true, donors });
     } catch (error) {

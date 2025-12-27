@@ -29,6 +29,9 @@ const provincesWithDistricts = {
   ],
 };
 
+const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+
+
 export default function RegisterPage() {
 
   const router = useRouter();
@@ -48,6 +51,8 @@ export default function RegisterPage() {
 
   const submitForm = async (e) => {
     e.preventDefault();
+
+    setBloodgroup(bloodgroup.toUpperCase());
 
     if (!name.trim() || !bloodgroup.trim() || !contact.trim() || !password.trim() || !email.trim() || !province.trim() || !district.trim()) {
       alert("Please fill in all fields.");
@@ -81,7 +86,7 @@ export default function RegisterPage() {
       return;
     }
 
-    if (!["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].includes(bloodgroup.toUpperCase())) {
+    if (!["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].includes) {
       alert("Please enter a valid blood group (A+, A-, B+, B-, AB+, AB-, O+, O-).");
       return;
     }
@@ -127,10 +132,22 @@ export default function RegisterPage() {
         <form className="space-y-4" onSubmit={submitForm}>
 
           <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Name" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
-          <input type="text" required value={bloodgroup} onChange={(e) => setBloodgroup(e.target.value)} placeholder="Enter Blood Group" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
           <input type="number" required value={contact} onChange={(e) => setContact(e.target.value)} placeholder="Enter Contact Number" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
           <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
           <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
+          <select
+            value={bloodgroup}
+            onChange={(e) => setBloodgroup(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            <option value="" disabled>Select Blood Group</option>
+            {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
+              <option key={bg} value={bg}>
+                {bg}
+              </option>
+            ))}
+          </select>
+
           <select
             value={province}
             onChange={(e) => {

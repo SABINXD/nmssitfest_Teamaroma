@@ -40,6 +40,7 @@ export async function POST(req) {
                 receiverConfirmed: false,
             })
                 .populate("notificationSenderId", "name bloodgroup email contact")
+                .populate("notificationReceiverId", "name bloodgroup email contact")
                 .sort({ createdAt: -1 });
 
             return new Response(
@@ -57,6 +58,8 @@ export async function POST(req) {
                 { status: 400 }
             );
         }
+
+
 
         // Validate ObjectIds
         if (

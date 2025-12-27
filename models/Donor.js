@@ -12,7 +12,7 @@ const donorSchema = new mongoose.Schema(
         bloodgroup: {
             type: String,
             required: true,
-            enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "a+", "a-", "b+", "b-", "ab+", "ab-", "o+", "o-"], // restrict to valid blood groups
+            enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"], // restrict to valid blood groups
         },
         contact: {
             type: String,

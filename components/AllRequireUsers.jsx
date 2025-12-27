@@ -4,7 +4,7 @@ import React from 'react';
 import { useAuth } from '@/app/context/storeUserId';
 
 const AllRequireUsers = () => {
-    const { allUsers, openAllRequireUsers, setOpenAllRequireUsers, user } = useAuth();
+    const { allUsers, openAllRequireUsers, setOpenAllRequireUsers, user, setAllUsers } = useAuth();
     console.log(allUsers, 'allusers');
     console.log(user, " user");
 
@@ -25,6 +25,8 @@ const AllRequireUsers = () => {
             });
 
             const data = await res.json();
+            console.log(data, 'x');
+
             if (data.success) {
                 alert("Notification sent successfully!");
             } else {
@@ -46,7 +48,7 @@ const AllRequireUsers = () => {
                     onClick={() => setOpenAllRequireUsers(false)}
                     className='absolute top-4 right-4 text-gray-500 hover:text-red-600 bg-white hover:bg-red-100 rounded-full p-2 shadow-md transition'
                     title="Close"
-                >
+                > 
                     ✕
                 </button>
 
