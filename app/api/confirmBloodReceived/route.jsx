@@ -3,15 +3,22 @@ import { connectDB } from "@/config/dbConnect";
 import Notification from "@/models/Notification";
 import Donor from "@/models/Donor";
 import mongoose from "mongoose";
+import DonationHistory from "@/models/DonationHistory";
 
 export async function PATCH(req) {
     await connectDB();
 
     try {
-        const { notificationId, notificationSenderId, notificationReceiverId } = await req.json();
+        let { notificationId, notificationSenderId, notificationReceiverId, bloodGroupDonated } = await req.json();
+        notificationReceiverId = notificationReceiverId._id;
+        console.log(notificationId, notificationSenderId, notificationReceiverId, bloodGroupDonated, 'X');
 
         // Validate IDs
-        if (!mongoose.Types.ObjectId.isValid(notificationId) || !mongoose.Types.ObjectId.isValid(notificationSenderId)) {
+        if (
+            !mongoose.Types.ObjectId.isValid(notificationId) ||
+            !mongoose.Types.ObjectId.isValid(notificationSenderId) ||
+            !mongoose.Types.ObjectId.isValid(notificationReceiverId)
+        ) {
             return new Response(
                 JSON.stringify({ success: false, error: "Invalid ID(s)" }),
                 { status: 400 }
@@ -29,13 +36,20 @@ export async function PATCH(req) {
 
         // Increment donation count of the helper/donor
         const updatedDonor = await Donor.findByIdAndUpdate(
-            notificationReceiverId,
+            notificationReceiverId, // donor who helped
             { $inc: { donationCount: 1 } },
             { new: true }
         );
 
+        // Create Donation History entry
+        const donationRecord = await DonationHistory.create({
+            donorId: notificationReceiverId, // the one who donated
+            BloodReceiverId: notificationSenderId, // the receiver
+            bloodGroupDonated
+        });
+
         return new Response(
-            JSON.stringify({ success: true, donor: updatedDonor }),
+            JSON.stringify({ success: true, donor: updatedDonor, donationHistory: donationRecord }),
             { status: 200 }
         );
 

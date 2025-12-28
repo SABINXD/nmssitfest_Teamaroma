@@ -1,587 +1,199 @@
-// Conversation opened. 1 unread message.
 
-// Skip to content
-// Using Gmail with screen readers
-// Enable desktop notifications for Gmail.
-//    OK  No, thanks
-// 1 of 332
-// (no subject)
-// Inbox
+"use client";
 
-// Santosh Mahato <santoshmahato98008@gmail.com>
-// Attachments
-// 16:56 (0 minutes ago)
-// to me
+import React, { useEffect, useState } from "react";
+import Loading from "@/components/Loading";
 
+export default function AdminPage() {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-//  One attachment
-//   •  Scanned by Gmail
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-// <meta charset="UTF-8">
-// <title> Admin Dashboard</title>
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                const res = await fetch("/api/me");
+                const data = await res.json();
 
-// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+                if (res.ok && data.user) {
+                    setUser(data.user);
 
-// <style>
-// :root {
-//   --red: #c62828;
-//   --bg: #f4f6f9;
-//   --card: #ffffff;
-//   --text: #222;
-//   --muted: #777;
-//   --table-head: #f5f5f5;
-//   --hover: #fafafa;
-// }
+                } else {
+                    setUser(null);
+                }
+            } catch (err) {
+                console.error(err);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-// body.dark {
-//   --bg: #121212;
-//   --card: #1e1e1e;
-//   --text: #eaeaea;
-//   --muted: #aaa;
-//   --table-head: #2a2a2a;
-//   --hover: #252525;
-// }
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-//   font-family: "Segoe UI", sans-serif;
-// }
-// body {
-//   background: var(--bg);
-//   color: var(--text);
-//   transition: background 0.3s, color 0.3s;
-// }
-// .app {
-//   display: flex;
-//   min-height: 100vh;
-// }
-// .sidebar {
-//   width: 240px;
-//   background: var(--card);
-//   padding: 20px;
-//   box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-// }
-// .logo {
-//   font-size: 22px;
-//   font-weight: bold;
-//   color: var(--red);
-//   margin-bottom: 30px;
-// }
-// .menu a {
-//   display: flex;
-//   align-items: center;
-//   gap: 10px;
-//   padding: 12px;
-//   text-decoration: none;
-//   color: var(--text);
-//   border-radius: 8px;
-//   margin-bottom: 10px;
-//   transition: 0.25s;
-// }
-// .menu a:hover,
-// .menu a.active {
-//   background: var(--red);
-//   color: white;
-// }
-// .main {
-//   flex: 1;
-//   padding: 25px;
-// }
-// .topbar {
-//   background: var(--card);
-//   padding: 15px 20px;
-//   border-radius: 14px;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-//   margin-bottom: 25px;
-// }
-// .topbar h1 {
-//   font-size: 22px;
-// }
-// .breadcrumb {
-//   font-size: 12px;
-//   color: var(--muted);
-// }
-// .top-actions {
-//   display: flex;
-//   align-items: center;
-//   gap: 15px;
-// }
-// .search-box {
-//   background: var(--bg);
-//   padding: 8px 14px;
-//   border-radius: 20px;
-//   display: flex;
-//   align-items: center;
-//   gap: 8px;
-// }
-// .search-box input {
-//   border: none;
-//   outline: none;
-//   background: transparent;
-//   color: var(--text);
-// }
-// .cards {
-//   display: grid;
-//   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-//   gap: 15px;
-//   margin-bottom: 25px;
-// }
-// .card {
-//   background: var(--card);
-//   padding: 20px;
-//   border-radius: 14px;
-//   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-//   transition: 0.3s;
-// }
-// .card:hover {
-//   transform: translateY(-4px);
-// }
-// .card.red {
-//   background: var(--red);
-//   color: white;
-// }
-// .card h3 {
-//   font-size: 17px;
-// }
-// .card h2 {
-//   font-size: 32px;
-//   margin: 8px 0;
-// }
-// .card p{
-//     font-size: 17px;
-// }
-// .content {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   gap: 20px;
-// }
-// @media(max-width: 900px) {
-//   .content { grid-template-columns: 1fr; }
-//   .sidebar { display: none; }
-// }
-// .box {
-//   background: var(--card);
-//   padding: 20px;
-//   border-radius: 14px;
-//   box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-//   font-size: 25px;
-// }
-// .bar-group {
-//   margin-bottom: 14px;
-// }
-// .bar-label {
-//   display: flex;
-//   justify-content: space-between;
-//   font-size: 17px;
-//   margin-bottom: 4px;
-// }
-// .bar {
-//   height: 8px;
-//   background: #444;
-//   border-radius: 10px;
-// }
-// .bar-fill {
-//   height: 100%;
-//   background: var(--red);
-//   border-radius: 10px;
-// }
-// .donor-table {
-//   width: 100%;
-//   border-collapse: collapse;
-//   margin-top: 10px;
-  
-// }
-// .donor-table th {
-//   background: var(--table-head);
-//   color: rgb(243, 11, 11);
-//   font-size: 20px;
-//   padding: 12px;
-//   text-align: left;
-// }
-// .donor-table td {
-//   padding: 12px;
-//   font-size: 18px;
-// }
-// .donor-table tbody tr {
-//   transition: 0.25s;
-// }
-// .donor-table tbody tr:hover {
-//   background: var(--hover);
-// }
-// .blood-tag {
-//   padding: 4px 10px;
-//   border-radius: 14px;
-//   font-size: 12px;
-//   font-weight: bold;
-//   color: white;
-// }
-// .blood-tag.o { background: #2e7d32; }
-// .blood-tag.a { background: #1565c0; }
-// .blood-tag.b { background: #ef6c00; }
-// .blood-tag.ab { background: #6a1b9a; }
+        getUser();
+    }, []);
 
-// .status {
-//   padding: 4px 10px;
-//   border-radius: 14px;
-//   font-size: 12px;
-//   font-weight: bold;
-// }
-// .status.active {
-//   background: #1b5e20;
-//   color: #c8e6c9;
-// }
-// .status.inactive {
-//   background: #7f1d1d;
-//   color: #ffcdd2;
-// }
-// .theme-toggle {
-//   cursor: pointer;
-//   font-size: 18px;
-// }
-// .admin-nav {
-//   position: sticky;
-//   top: 0;
-//   z-index: 1000;
-//   background: rgb(250, 176, 176);
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-//   border-radius: 15px;
-//   padding-left: 40px;
-//   padding-top: 10px;
-// }
+    if (loading) return <Loading />;
 
-// .nav-menu {
-//   display: flex;
-//   gap: 25px;
-// }
-// .nav-menu a {
-//   text-decoration: none;
-//   color: var(--text);
-//   font-weight: 500;
-//   padding: 8px 12px;
-//   position: relative;
-//   transition: 0.3s;
-// }
-// .nav-menu a::after {
-//   content: "";
-//   position: absolute;
-//   left: 0;
-//   bottom: -4px;
-//   width: 0%;
-//   height: 3px;
-//   background: var(--red);
-//   transition: 0.3s;
-// }
-// .nav-menu a:hover::after,
-// .nav-menu a.active::after {
-//   width: 100%;
-// }
-// .nav-menu a:hover {
-//   color: var(--red);
-// }
-// .main {
-//   padding-top: 20px;
-// }
-// .admin-nav .logo p {
-//   font-size: 15px;
-//   font-weight: 500;
-//   color: #5d4e4e;   /* changed to white */
-//   margin-left: 20px;
-// }
+    if (!user) {
+        return <p className="text-red-600 text-center mt-10">You are not logged in.</p>;
+    }
+    if (user.isAdmin === "false") {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-900 via-red-800 to-rose-900 px-4">
+                <div className="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl p-8 max-w-md text-center border border-red-500">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="text-6xl text-red-600 animate-pulse">⚠️</div>
+                        <h2 className="text-2xl font-extrabold text-red-700">Access Denied</h2>
+                        <p className="text-gray-700">
+                            You are not authorized to access this page. Only admins can view this section.
+                        </p>
+                        <a
+                            href="/"
+                            className="mt-4 inline-block px-6 py-2 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition"
+                        >
+                            Go Back Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
-// .simple-header {
-//   display: flex ;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin-bottom: 5px;
-// }
-// .simple-header p {
-//   font-size: 15px;
-//   color: var(--muted);
-// }
-// .p{
-//     margin-bottom: 40px;
-//     font-size: 20px;
-// }
-// .simple-header .theme-toggle {
-//   font-size: 18px;
-//   cursor: pointer;
-//   color: var(--text);
-//   transition: transform 0.3s;
-// }
+    const donors = [
+        { name: "Aarav Sharma", blood: "O+", bloodClass: "bg-green-700", location: "Kathmandu", age: 33, donations: 12, status: "active" },
+        { name: "Priya Thapa", blood: "A+", bloodClass: "bg-blue-700", location: "Pokhara", age: 37, donations: 8, status: "active" },
+        { name: "Bijay Gurung", blood: "B+", bloodClass: "bg-orange-600", location: "Rupandehi", age: 30, donations: 5, status: "inactive" },
+        { name: "Sita Rai", blood: "AB-", bloodClass: "bg-purple-700", location: "Jhapa", age: 35, donations: 3, status: "active" },
+        { name: "Ashwin Nigam", blood: "O+", bloodClass: "bg-green-700", location: "Chitwan", age: 25, donations: 12, status: "active" },
+    ];
 
-// .simple-header .theme-toggle:hover {
-//   transform: rotate(20deg);
-// }
+    const bloodDistribution = [
+        { type: "O+", donors: 35, percent: 70 },
+        { type: "A+", donors: 28, percent: 56 },
+        { type: "B+", donors: 22, percent: 44 },
+        { type: "AB+", donors: 12, percent: 24 },
+        { type: "O-", donors: 25, percent: 50 },
+        { type: "A-", donors: 18, percent: 36 },
+        { type: "B-", donors: 15, percent: 30 },
+        { type: "AB-", donors: 9, percent: 18 },
+    ];
 
-// @keyframes fadeUp {
-//   from {
-//     opacity: 0;
-//     transform: translateY(12px);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// }
+    return (
+        <div className="flex min-h-screen bg-gray-100">
+            {/* Sidebar */}
+            <aside className="w-60 bg-white p-6 shadow-md hidden lg:block">
+                <h1 className="text-2xl font-bold text-red-700 mb-6">BloodFlow</h1>
+                <nav className="flex flex-col gap-3">
+                    <a className="flex items-center gap-2 px-3 py-2 rounded bg-red-700 text-white font-semibold">
+                        <i className="fa fa-chart-line"></i> Dashboard
+                    </a>
+                    <a className="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-100">
+                        <i className="fa fa-users"></i> Donors
+                    </a>
+                    <a className="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-100">
+                        <i className="fa fa-hospital"></i> Requests
+                    </a>
+                    <a className="flex items-center gap-2 px-3 py-2 rounded hover:bg-red-100">
+                        <i className="fa fa-gear"></i> Settings
+                    </a>
+                </nav>
+            </aside>
 
-// .main > * {
-//   animation: fadeUp 0.5s ease forwards;
-// }
-// .stat {
-//   transition: transform 0.3s;
-// }
+            {/* Main content */}
+            <main className="flex-1 p-6">
+                <h1 className="text-2xl font-bold mb-4">Welcome Back, Admin</h1>
+                <p className="text-lg mb-8">Here's what's happening with your blood network today.</p>
 
-// .card:hover .stat {
-//   transform: scale(1.08);
-// }
-// .box h3 {
-//   position: relative;
-//   padding-bottom: 8px;
-//   margin-bottom: 15px;
-// }
+                {/* Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div className="bg-red-700 text-white p-6 rounded shadow">
+                        <h3 className="text-lg font-semibold">Total Donors</h3>
+                        <h2 className="text-3xl font-bold mt-2">8</h2>
+                        <p className="mt-1">Registered</p>
+                    </div>
+                    <div className="bg-white p-6 rounded shadow">
+                        <h3 className="text-lg font-semibold">Total Donations</h3>
+                        <h2 className="text-3xl font-bold mt-2">61</h2>
+                        <p className="mt-1">+8% this month</p>
+                    </div>
+                    <div className="bg-white p-6 rounded shadow">
+                        <h3 className="text-lg font-semibold">Average Donations</h3>
+                        <h2 className="text-3xl font-bold mt-2">7.6</h2>
+                        <p className="mt-1">Per donor</p>
+                    </div>
+                    <div className="bg-white p-6 rounded shadow">
+                        <h3 className="text-lg font-semibold">Active Donors</h3>
+                        <h2 className="text-3xl font-bold mt-2">7</h2>
+                        <p className="mt-1">Currently active</p>
+                    </div>
+                </div>
 
-// .box h3::after {
-//   content: "";
-//   position: absolute;
-//   left: 0;
-//   bottom: 0;
-//   width: 330px;
-//   height: 3px;
-//   background: var(--red);
-//   border-radius: 5px;
-// }
-// body.dark .theme-toggle {
-//   color: #ffd54f;
-// }
-// @media (max-width: 600px) {
-//   .cards {
-//     grid-template-columns: 1fr;
-//   }
+                {/* Blood Distribution & Donors Table */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Blood Distribution */}
+                    <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-lg">
+                        <h3 className="text-xl md:text-2xl font-bold text-red-700 mb-6 drop-shadow-md">
+                            Blood Type Distribution
+                        </h3>
 
-//   .simple-header {
-//     flex-direction: column;
-//     align-items: flex-start;
-//     gap: 10px;
-//   }
-// }
-// .card,
-// .box {
-//   cursor: default;
-// }
-
-// .theme-toggle {
-//   cursor: pointer;
-// }
-
-// </style>
-// </head>
-
-// <body>
-
-// <nav class="admin-nav">
-//   <div class="nav-left">
-//     <div class="logo">
-//       <i class="fa-solid fa-droplet"></i> BloodFlow
-//       <p>Admin Dashboard</p>
-//     </div>
-//   </div>
-
-//   <div class="nav-menu">
-//     <a class="active"><i class="fa fa-chart-line"></i> Dashboard</a>
-//     <a><i class="fa fa-users"></i> Donors</a>
-//     <a><i class="fa fa-hospital"></i> Requests</a>
-//     <a><i class="fa fa-gear"></i> Settings</a>
-//   </div>
-//   </div>
-// </nav>
-
-// <div class="app">
+                        {bloodDistribution.map((b) => (
+                            <div className="mb-4" key={b.type}>
+                                <div className="flex justify-between text-sm md:text-base font-medium mb-2 text-gray-700">
+                                    <span className="text-gray-800">{b.type}</span>
+                                    <span className="text-red-600 font-semibold">{b.donors} donors</span>
+                                </div>
+                                <div className="w-full bg-red-100 rounded-full h-3 overflow-hidden">
+                                    <div
+                                        className="h-3 rounded-full bg-gradient-to-r from-red-600 to-rose-600 transition-all duration-500"
+                                        style={{ width: `${b.percent}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
 
-// <div class="main">
-// <div class="simple-header">
-//   <h1>Welcome Back, Admin</h1>
-//   <i class="fa fa-moon theme-toggle" onclick="toggleTheme()"></i>
-// </div>
-// <div class="p">Here's what's happening with your blood network today.</div>
+                    {/* Donors Table */}
+                    <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-lg overflow-x-auto">
+                        <h3 className="text-xl md:text-2xl font-bold text-red-700 mb-6 drop-shadow-md">
+                            Registered Donors
+                        </h3>
 
-// <div class="cards">
-//   <div class="card red">
-//     <h3>Total Donors</h3>
-//     <h2 class="stat">8</h2>
-//     <p>Registered</p>
-//   </div>
-//   <div class="card">
-//     <h3>Total Donations</h3>
-//     <h2 class="stat">61</h2>
-//     <p>+8% this month</p>
-//   </div>
-//   <div class="card">
-//     <h3>Average Donations</h3>
-//     <h2 class="stat">7.6</h2>
+                        <table className="min-w-full text-left border-collapse">
+                            <thead className="bg-red-100 text-red-800">
+                                <tr>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Name</th>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Blood</th>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Location</th>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Age</th>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Donations</th>
+                                    <th className="px-4 py-3 text-sm md:text-base font-semibold">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {donors.map((donor) => (
+                                    <tr key={donor.name} className="hover:bg-red-50 transition-colors">
+                                        <td className="text-gray-800 font-medium">{donor.name}</td>
 
-//     <p>Per donor</p>
-//   </div>
-//   <div class="card">
-//     <h3>Active Donors</h3>
-//    <h2 class="stat">7</h2>
+                                        {/* Blood type with smaller padding */}
+                                        <td className={`px-2 py-1 text-white font-bold text-center text-sm rounded-full ${donor.bloodClass}`}>
+                                            {donor.blood}
+                                        </td>
 
-//     <p>Currently active</p>
-//   </div>
-// </div>
+                                        <td className="px-4 py-2 text-gray-700">{donor.location}</td>
+                                        <td className="px-4 py-2 text-gray-700">{donor.age}</td>
+                                        <td className="px-4 py-2 text-gray-700 font-semibold">{donor.donations}</td>
+                                        <td className={`px-2 py-1 text-white font-bold text-center text-sm rounded-full ${donor.status === "active" ? "bg-green-600" : "bg-red-600"}`}>
+                                            {donor.status.charAt(0).toUpperCase() + donor.status.slice(1)}
+                                        </td>
+                                    </tr>
+                                ))}
 
+                            </tbody>
+                        </table>
+                    </div>
 
-// <div class="content">
-
-
-// <div class="box">
-//   <h3>Blood Type Distribution</h3>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>O+</span><span>35 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:70%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>A+</span><span>28 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:56%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>B+</span><span>22 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:44%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>AB+</span><span>12 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:24%"></div></div>
-//   </div>
-//   <div class="bar-group">
-//     <div class="bar-label"><span>O-</span><span>25 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:50%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>A-</span><span>18 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:36%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>B-</span><span>15 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:30%"></div></div>
-//   </div>
-
-//   <div class="bar-group">
-//     <div class="bar-label"><span>AB-</span><span>9 donors</span></div>
-//     <div class="bar"><div class="bar-fill" style="width:18%"></div></div>
-//   </div>
-// </div>
-
-
-// <div class="box">
-//   <h3>Registered Donors</h3>
-
-//   <table class="donor-table">
-//     <thead>
-//       <tr>
-//         <th>Name</th>
-//         <th>Blood</th>
-//         <th>Location</th>
-//         <th>Age</th>
-//         <th>Donations</th>
-//         <th>Status</th>
-//       </tr>
-//     </thead>
-//     <tbody>
-//       <tr>
-//         <td>Aarav Sharma</td>
-//         <td><span class="blood-tag o">O+</span></td>
-//         <td>Kathmandu</td>
-//         <td>33</td>
-//         <td>12</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Priya Thapa</td>
-//         <td><span class="blood-tag a">A+</span></td>
-//         <td>Pokhara</td>
-//         <td>37</td>
-//         <td>8</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Bijay Gurung</td>
-//         <td><span class="blood-tag b">B+</span></td>
-//         <td>Rupandehi</td>
-//         <td>30</td>
-//         <td>5</td>
-//         <td><span class="status inactive">Inactive</span></td>
-//       </tr>
-//       <tr>
-//         <td>Sita Rai</td>
-//         <td><span class="blood-tag ab">AB-</span></td>
-//         <td>Jhapa</td>
-//         <td>35</td>
-//         <td>3</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Ashwin Nigam</td>
-//         <td><span class="blood-tag o">O+</span></td>
-//         <td>Chitwan</td>
-//         <td>25</td>
-//         <td>12</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Rajan Raut</td>
-//         <td><span class="blood-tag a">A-</span></td>
-//         <td>Chitwan</td>
-//         <td>20</td>
-//         <td>5</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Sarina Paudel</td>
-//         <td><span class="blood-tag ab">AB+</span></td>
-//         <td> Chitwan</td>
-//         <td> 22</td>
-//         <td>5</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//       <tr>
-//         <td>Samir Bhatta</td>
-//         <td><span class="blood-tag o">O-</span></td>
-//         <td>Lamjung</td>
-//         <td>24</td>
-//         <td>3</td>
-//         <td><span class="status active">Active</span></td>
-//       </tr>
-//     </tbody>
-//   </table>
-// </div>
-
-// </div>
-// </div>
-// </div>
-
-// <script>
-// function toggleTheme() {
-//   document.body.classList.toggle("dark");
-// }
-// </script>
-
-
-// </body>
-// </html>
-// Admin_dashboard.html
-// Displaying Admin_dashboard.html.
+                </div>
+            </main>
+        </div>
+    );
+}

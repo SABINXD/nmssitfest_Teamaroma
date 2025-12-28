@@ -132,7 +132,7 @@ const page = () => {
 
     return (
         <div>
-            <nav className="w-full bg-black text-white px-6 py-4 shadow-lg">
+            <nav className="w-full bg-[#2a2a2a] text-white px-6 py-4 shadow-lg">
                 {/* Top bar */}
                 <div className="flex items-center justify-between">
                     {/* Left */}
@@ -204,38 +204,68 @@ const page = () => {
 
             <main className="p-6 space-y-6 bg-gray-50 min-h-screen">
                 {/* Welcome Section */}
-                <div className="bg-white shadow-md rounded-lg p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl font-bold text-gray-800">Welcome, {userDetails.name}</h1>
-                        <p className="mt-1 text-red-600 font-semibold">{userDetails.bloodgroup}</p>
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-900 via-rose-900 to-red-800 p-6 shadow-2xl text-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+
+                    {/* Glow accent */}
+                    <div className="absolute -top-10 -right-10 h-40 w-40 bg-red-600/20 rounded-full blur-3xl"></div>
+
+                    {/* User Info */}
+                    <div className="relative">
+                        <h1 className="text-3xl font-extrabold tracking-tight">
+                            Welcome, {userDetails.name}
+                        </h1>
+
+                        <div className="flex items-center gap-3 mt-2">
+                            <span className="px-4 py-1 rounded-full bg-white/10 backdrop-blur text-sm font-semibold border border-white/20">
+                                🩸 {userDetails.bloodgroup}
+                            </span>
+                            <span className="text-sm text-red-200">
+                                Blood Type
+                            </span>
+                        </div>
                     </div>
-                    <div className="text-gray-600 font-medium">
-                        Total Donations: <span className="text-blue-600">{userDetails.donationCount}</span>
+
+                    {/* Donation Stats */}
+                    <div className="relative text-center sm:text-right">
+                        <p className="text-sm uppercase tracking-widest text-red-200">
+                            Total Donations
+                        </p>
+                        <p className="text-4xl font-extrabold text-white mt-1">
+                            {userDetails.donationCount}
+                        </p>
+                        <p className="text-xs text-red-300 mt-1">
+                            Lives Impacted
+                        </p>
                     </div>
                 </div>
+
 
                 {/* Profile Card */}
                 <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-bold text-gray-800">My Profile</h2>
+                        <h2 className="text-2xl font-extrabold text-gray-800 tracking-tight">
+                            My Profile
+                        </h2>
+
                         {!editMode ? (
                             <button
                                 onClick={() => setEditMode(true)}
-                                className="text-blue-600 hover:underline font-medium cursor-pointer"
+                                className="flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition"
                             >
-                                Edit Info
+                                ✏️ Edit Info
                             </button>
                         ) : (
-                            <div className="flex gap-2">
+                            <div className="flex gap-3">
                                 <button
                                     onClick={handleSave}
-                                    className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+                                    className="px-5 py-2 rounded-full bg-gradient-to-r from-red-600 to-rose-700 text-white font-semibold shadow-md hover:from-red-700 hover:to-rose-800 transition"
                                 >
                                     Save
                                 </button>
+
                                 <button
                                     onClick={handleCancel}
-                                    className="bg-gray-300 text-gray-700 px-4 py-1 rounded hover:bg-gray-400"
+                                    className="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-medium border border-gray-300 hover:bg-gray-200 transition"
                                 >
                                     Cancel
                                 </button>
@@ -243,134 +273,212 @@ const page = () => {
                         )}
                     </div>
 
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
-                        <div>
-                            <p>
-                                <span className="font-semibold">Email:</span>{" "}
+                        <div className="space-y-4">
+
+                            {/* Email */}
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    Email
+                                </span>
+
                                 {editMode ? (
                                     <input
                                         type="email"
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="border rounded p-1 w-full"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
                                     />
                                 ) : (
-                                    userDetails.email
+                                    <span className="text-gray-800 font-medium">
+                                        {userDetails.email}
+                                    </span>
                                 )}
-                            </p>
-                            <p>
-                                <span className="font-semibold">Contact:</span>{" "}
+                            </div>
+
+                            {/* Contact */}
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    Contact
+                                </span>
+
                                 {editMode ? (
                                     <input
                                         type="text"
                                         name="contact"
                                         value={formData.contact}
                                         onChange={handleChange}
-                                        className="border rounded p-1 w-full"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
                                     />
                                 ) : (
-                                    userDetails.contact
+                                    <span className="text-gray-800 font-medium">
+                                        {userDetails.contact}
+                                    </span>
                                 )}
-                            </p>
-                            <p>
-                                <span className="font-semibold">Birth Year:</span>{" "}
+                            </div>
+
+                            {/* Birth Year */}
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    Birth Year
+                                </span>
+
                                 {editMode ? (
                                     <input
                                         type="number"
                                         name="birthYear"
                                         value={formData.birthYear}
                                         onChange={handleChange}
-                                        className="border rounded p-1 w-full"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
                                     />
                                 ) : (
-                                    userDetails.birthYear
+                                    <span className="text-gray-800 font-medium">
+                                        {userDetails.birthYear}
+                                    </span>
                                 )}
-                            </p>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <p>
-                                <span className="font-semibold">Location:</span>
-                            </p>
-                            <p>
-                                Province:{" "}
+                        <div className="space-y-5">
+
+                            {/* Section Title */}
+                            <h3 className="text-lg font-extrabold text-gray-800 flex items-center gap-2">
+                                📍 Location & Status
+                            </h3>
+
+                            {/* Province */}
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    Province
+                                </span>
+
                                 {editMode ? (
                                     <input
                                         type="text"
                                         name="province"
                                         value={formData.province}
                                         onChange={handleChange}
-                                        className="border rounded p-1 w-full"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
                                     />
                                 ) : (
-                                    userDetails.province
+                                    <span className="text-gray-800 font-medium">
+                                        {userDetails.province}
+                                    </span>
                                 )}
-                            </p>
-                            <p>
-                                District:{" "}
+                            </div>
+
+                            {/* District */}
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    District
+                                </span>
+
                                 {editMode ? (
                                     <input
                                         type="text"
                                         name="district"
                                         value={formData.district}
                                         onChange={handleChange}
-                                        className="border rounded p-1 w-full"
+                                        className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
                                     />
                                 ) : (
-                                    userDetails.district
+                                    <span className="text-gray-800 font-medium">
+                                        {userDetails.district}
+                                    </span>
                                 )}
-                            </p>
-                            <p>
-                                Is Active:{" "}
-                                {editMode ? (
-                                    <input
-                                        type="checkbox"
-                                        name="isActive"
-                                        checked={!!formData.isActive}  // force boolean
-                                        onChange={(e) =>
-                                            setFormData({
-                                                ...formData,
-                                                isActive: e.target.checked,
-                                            })
-                                        }
-                                    />
+                            </div>
 
+                            {/* Active Status */}
+                            <div className="flex items-center gap-4">
+                                <span className="sm:w-32 font-semibold text-gray-700">
+                                    Active Status
+                                </span>
+
+                                {editMode ? (
+                                    <label className="flex items-center gap-3 cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={!!formData.isActive}
+                                            onChange={(e) =>
+                                                setFormData({
+                                                    ...formData,
+                                                    isActive: e.target.checked,
+                                                })
+                                            }
+                                            className="h-5 w-5 accent-red-600"
+                                        />
+                                        <span className="text-gray-700 font-medium">
+                                            Available for Donation
+                                        </span>
+                                    </label>
                                 ) : (
-                                    userDetails.isActive ? "Yes" : "No"
+                                    <span
+                                        className={`px-3 py-1 rounded-full text-sm font-semibold ${userDetails.isActive
+                                            ? "bg-green-100 text-green-700"
+                                            : "bg-gray-200 text-gray-600"
+                                            }`}
+                                    >
+                                        {userDetails.isActive ? "Active" : "Inactive"}
+                                    </span>
                                 )}
-                            </p>
+                            </div>
 
                         </div>
+
                     </div>
                 </div>
 
                 {/* show donation history */}
-                <div className="bg-white shadow-md rounded-xl p-6 space-y-4">
-                    <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                        🩸 Donation History
-                    </h2>
+                <div className="relative overflow-hidden rounded-2xl bg-white shadow-xl p-6 space-y-5 border border-red-100">
 
-                    <div className="text-gray-700">
-                        <p className="text-lg">
-                            Total Donations:{" "}
-                            <span className="font-semibold text-blue-600">
-                                {userDetails.donationCount}
-                            </span>
-                        </p>
+                    {/* Header */}
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-2xl font-extrabold text-gray-800 flex items-center gap-2">
+                            🩸 Donation History
+                        </h2>
+
+                        <span className="px-4 py-1 rounded-full text-sm font-semibold bg-red-100 text-red-700">
+                            Lifesaver Stats
+                        </span>
                     </div>
 
-                    {userDetails.donationCount === 0 && (
-                        <div className="mt-4 bg-gray-50 border border-dashed border-gray-300 rounded-lg p-4 text-center">
-                            <p className="text-gray-500">
-                                No donation history available right now.
+                    {/* Donation Count */}
+                    <div className="flex items-center justify-between bg-gradient-to-r from-red-50 to-rose-50 rounded-xl p-4">
+                        <div>
+                            <p className="text-sm uppercase tracking-wider text-gray-500">
+                                Total Donations
                             </p>
-                            <p className="text-sm text-gray-400 mt-1">
-                                Start donating to make a difference ❤️
+                            <p className="text-4xl font-extrabold text-red-700">
+                                {userDetails.donationCount}
                             </p>
                         </div>
+
+                        <div className="text-5xl">
+                            🫀
+                        </div>
+                    </div>
+
+                    {/* Empty State */}
+                    {userDetails.donationCount === 0 && (
+                        <div className="mt-4 bg-gradient-to-br from-gray-50 to-white border border-dashed border-gray-300 rounded-xl p-6 text-center">
+                            <p className="text-gray-600 font-medium">
+                                No donation history yet
+                            </p>
+                            <p className="text-sm text-gray-400 mt-1">
+                                Start donating and become a lifesaver ❤️
+                            </p>
+
+                            <div className="mt-4 text-red-600 text-3xl">
+                                🩸
+                            </div>
+                        </div>
                     )}
+
                 </div>
+
 
             </main>
 

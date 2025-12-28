@@ -1,38 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# 🩸 Blood Flow  
+### A Blood Donation & Emergency Support Platform 🇳🇵
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Blood Flow is a social-impact web platform designed to **connect blood donors with people in need** across Nepal.  
+Our goal is simple: **make blood availability fast, transparent, and location-based**, especially during emergencies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🌟 Project Idea
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+In Nepal, finding blood during emergencies is often difficult and time-consuming.  
+This platform helps solve that problem by allowing:
 
-## Learn More
+- **Donors** to register their blood group and location
+- **Patients or families** to search for donors nearby
+- **Emergency cases** to quickly reach available donors
 
-To learn more about Next.js, take a look at the following resources:
+This project focuses on **speed, simplicity, and accessibility**, especially for mobile users.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 Core Features
 
-## Deploy on Vercel
+### 👤 Donor Features
+- Register as a blood donor
+- Store blood group, location, and contact details
+- Update availability (Available / Not Available)
+- Edit or delete profile anytime
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🔍 Blood Search
+- Search donors by:
+  - Blood group
+  - District / location
+- View donor cards with quick contact options
+- Mobile-friendly and fast search experience
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🚨 Emergency Blood Request
+- Special emergency request form
+- Phone number verification (OTP)
+- Emergency cases marked as **ACTIVE**
+- Nearby donors are prioritized
+- Auto-expiry of emergency requests
 
-<!-- hello -->
+### 🛠️ Admin Panel (Basic)
+- View and manage donors
+- Monitor emergency requests
+- Remove fake or spam entries
+- View platform statistics
+
+---
+
+## 🖥️ Tech Stack
+
+**Frontend**
+- React
+
+**Backend**
+- Node.js
+
+**Other**
+- OTP verification
+- Location-based filtering
+- Scalable architecture
+
+---
+
+## 📱 Design Philosophy
+
+- Mobile-first design 📱
+- Simple red & white color theme 🟥⬜
+- Big buttons for quick actions
+- Easy-to-use UI for all age groups
+
+---
+
+## 🚀 Future Enhancements
+
+We are continuously improving this project. Planned features include:
+
+- Google Maps integration
+- SMS / WhatsApp notifications
+- Blood donation reminders
+- Verified hospital accounts
+- Mobile app (React Native)
+- Donor verification badges
+
+If any features or improvements are missing, **our team will add them in future updates**.
+
+---
+
+## 💬 Feedback & Contributions
+
+We believe great products grow with community feedback ❤️  
+If you find any issues, have suggestions, or ideas for improvement:
+
+- Feel free to open an issue
+- Or reach out directly via email
+
+📧 **Email:** mirajgautam2050@gmail.com  
+
+We’ll be glad to hear your feedback and improve this platform together.
+
+---
+
+## 🙏 Acknowledgement
+
+This project is built with the intention of **helping people and saving lives**.  
+Even one successful donation can make a huge difference.
+
+**Thank you for checking out Blood Flow!** 🩸🇳🇵

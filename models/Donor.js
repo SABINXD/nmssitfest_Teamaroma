@@ -44,6 +44,11 @@ const donorSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        isAdmin: {
+            type: String,
+            required: true,
+            default: false
+        },
         isActive: {
             type: Boolean,
             default: true,

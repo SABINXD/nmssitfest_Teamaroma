@@ -1,12 +1,19 @@
 
-import React from 'react'
 
-const page = () => {
+'use client'
+import React from "react";
+import { useEffect, useState } from "react";
+import LandingPage from "@/components/LandingPage";
+
+const Page = () => {
+
+
   return (
     <div>
-      This is Landing page. 
-    </div>
-  )
-}
+      <LandingPage />
+    </div >
+  );
 
-export default page
+};
+
+export default Page;

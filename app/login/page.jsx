@@ -1,5 +1,6 @@
 
 
+
 "use client"; // needed for stateful components in App Router
 import Link from "next/link";
 
@@ -58,24 +59,59 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-red-50">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-2xl font-bold text-center text-red-600 mb-6">
-          Login Form
-        </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-800 via-red-700 to-rose-600 px-4">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-8 border border-red-100">
 
-        <form className="space-y-4" onSubmit={submitForm}>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-red-600 to-rose-700 flex items-center justify-center text-white text-2xl shadow-lg">
+            🩸
+          </div>
+          <h1 className="text-3xl font-extrabold text-red-700 mt-4">
+            Blood Flow Login
+          </h1>
+          <p className="text-sm text-gray-500 mt-1"> 
+            Donate • Save • Protect Lives
+          </p>
+        </div>
 
-          <input type="number" required value={contact} onChange={(e) => setContact(e.target.value)} placeholder="Enter Contact Number" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
-          <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500" />
+        <form className="space-y-5" onSubmit={submitForm}>
 
+          <input
+            type="number"
+            required
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            placeholder="Contact Number"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
+          />
 
-          <button disabled={loading} type="submit" className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition-colors">
+          <input
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-red-500 transition"
+          />
+
+          <button
+            disabled={loading}
+            type="submit"
+            className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-700 hover:to-rose-800 transition-all duration-300 shadow-lg disabled:opacity-70"
+          >
             {loading ? "Logging in..." : "Login"}
           </button>
-          <span className="text-center block">Don't have an account?<Link href="/register" className="text-red-600"> Register here</Link></span>
+
+          <p className="text-center text-sm text-gray-600">
+            Don’t have an account?
+            <Link href="/register" className="ml-1 font-semibold text-red-600 hover:underline">
+              Register here
+            </Link>
+          </p>
         </form>
       </div>
     </div>
+
   );
 }
